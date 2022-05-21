@@ -67,7 +67,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'Asia/Tokyo',
 
     /*
     |--------------------------------------------------------------------------
@@ -80,7 +80,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'ja',
 
     /*
     |--------------------------------------------------------------------------
@@ -174,7 +174,9 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-
+        App\Providers\FortifyServiceProvider::class,
+        App\Providers\RepositoryServiceProvider::class,
+        App\Providers\AdminLoginServiceProvider::class
     ],
 
     /*
@@ -232,4 +234,14 @@ return [
 
     ],
 
+    /**
+     * SPA Application Url
+     * 
+     * 
+    */
+    'spa_url' => env('SPA_URL'),
+
+    'verification' => [
+        'expire' => 525600, // One year in minutes - enter as many minutes as you would like here
+    ]
 ];

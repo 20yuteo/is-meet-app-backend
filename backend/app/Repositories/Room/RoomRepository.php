@@ -7,6 +7,7 @@ use App\Models\Room;
 use App\Models\User;
 use App\Models\Member;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class RoomRepository implements RoomRepositoryInterface {
 
@@ -66,16 +67,18 @@ class RoomRepository implements RoomRepositoryInterface {
      */
     public function joinRoom(string $name, string $token) {
         try {
+            DB::beginTransaction();
             $room = $this->findByToken($token);
             $room->join_member_count += 1;
             $room->save();
-            $member = new Member([
-                'name' => $name
-            ]);
-            $room->members()
-                ->save($member);
+            $member = $room->members()
+                ->save(new Member([
+                    'name' => $name
+                ]));
+            DB::commit();
             return ['room' => $room, 'member' => $member];
-        } catch (\Exception $e) {   
+        } catch (\Exception $e) {
+            DB::rollback();
             throw $e;
         }
     }

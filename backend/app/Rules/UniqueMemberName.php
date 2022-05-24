@@ -8,14 +8,18 @@ use App\Domain\Member\MemberService;
 class UniqueMemberName implements Rule
 {
     private $member_service;
+
+    private $token;
     /**
      * Create a new rule instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(string $token)
     {
         $this->member_service = new MemberService();
+
+        $this->token = $token;
     }
 
     /**
@@ -27,7 +31,7 @@ class UniqueMemberName implements Rule
      */
     public function passes($attribute, $value)
     {
-        return $this->member_service->checkExistsMemberName($value);
+        return $this->member_service->checkExistsMemberName($this->token, $value);
     }
 
     /**

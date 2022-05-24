@@ -28,7 +28,7 @@ class JoinRoomRequest extends FormRequest
     {
         return [
             'token' => ['required', 'string', new ExistsRoomWithToken, new CheckToBeAbleToJoinRoom],
-            'name' => ['required', 'string', 'max:255', new UniqueMemberName]
+            'name' => ['required', 'string', 'max:255', new UniqueMemberName($this->request->get('token'))]
         ];
     }
 }

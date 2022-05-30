@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMembersTable extends Migration
+class CreateRoomsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,15 @@ class CreateMembersTable extends Migration
      */
     public function up()
     {
-        Schema::create('members', function (Blueprint $table) {
+        Schema::create('rooms', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('room_id')->constrained('rooms');
-            $table->string('name');
+            $table->foreignId('user_id')->constrained('users');
+            $table->string('name')->unique();
+            $table->string('token')->unique();
+            $table->string('invite_url')->unique();
+            $table->integer('join_member_count');
             $table->timestamps();
             $table->softDeletes();
-            $table->unique(['room_id', 'name']);
         });
     }
 
@@ -30,6 +32,6 @@ class CreateMembersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('members');
+        Schema::dropIfExists('rooms');
     }
 }

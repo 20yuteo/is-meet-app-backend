@@ -10,7 +10,7 @@ provider:
     ecr:
         images:
             laravel:
-                path: ../infra/docker/php/
+                path: ./
     lambdaHashingVersion: 20201221
 
 package:

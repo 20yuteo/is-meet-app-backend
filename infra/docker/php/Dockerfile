@@ -28,4 +28,6 @@ RUN apt-get update && \
 COPY ./infra/docker/php/php-fpm.d/zzz-www.conf /usr/local/etc/php-fpm.d/zzz-www.conf
 COPY ./infra/docker/php/php.ini /usr/local/etc/php/php.ini
 
+COPY --chown=wwwdata:wwwdata ./backend/ work/backend
+
 WORKDIR /work/backend
